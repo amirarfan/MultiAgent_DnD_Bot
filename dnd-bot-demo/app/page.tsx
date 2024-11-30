@@ -91,7 +91,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        <section id="features" className="py-32">
+        <section id="features" className="py-20">
           <h2 className="text-4xl font-bold text-center text-white mb-16">Features</h2>
           <Features />
         </section>
