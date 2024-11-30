@@ -73,17 +73,6 @@ export default function Features() {
           </p>
         </motion.div>
       ))}
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-        className="col-span-full mt-8 p-4 bg-purple-900/20 rounded-lg border border-purple-500/20"
-      >
-        <p className="text-center text-purple-200 text-sm">
-          Powered by OpenAI&apos;s GPT-4 and advanced AI technologies for the most immersive D&D experience yet.
-        </p>
-      </motion.div>
     </div>
   );
 }

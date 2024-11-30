@@ -135,7 +135,7 @@ export default function ChatDemo() {
       ref={ref}
       style={{ opacity, y }}
       transition={{ duration: 0.6 }}
-      className="bg-[#313338] rounded-xl p-6 max-w-2xl mx-auto my-20 shadow-2xl"
+      className="bg-[#313338] rounded-xl p-6 max-w-2xl mx-auto my-18 shadow-2xl"
     >
       <div className="bg-[#2B2D31] p-2 rounded-t-xl mb-4 flex items-center space-x-2">
         <div className="w-3 h-3 rounded-full bg-red-500"></div>
