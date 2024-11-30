@@ -1,0 +1,11 @@
+discord.py==2.4.0
+python-dotenv==1.0.1
+openai
+requests==2.31.0
+azure-cosmos==4.7.0
+websockets==13.1
+PyNaCl==1.5.0
+git+https://github.com/openai/swarm.git
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-mock==3.12.0
