@@ -5,7 +5,7 @@ import { useRef, useEffect } from 'react';
 import Header from './components/Header';
 import ChatDemo from './components/ChatDemo';
 import Features from './components/Features';
-import DragonBackground from './components/DragonBackground';
+import DiceBackground from './components/DiceBackground';
 
 export default function Home() {
   const heroRef = useRef(null);
@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-gradient-to-b from-black to-purple-900/80">
-      <DragonBackground />
+      <DiceBackground />
       <div className="relative z-10">
         <Header />
         
