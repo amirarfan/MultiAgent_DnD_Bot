@@ -214,7 +214,6 @@ async def on_reaction_add(reaction, user):
         voice_client = await voice_channel.connect()
 
         try:
-            # Generate speech using the new realtime_tts function
             logger.info(f"Generating speech for message")
             audio_data = await realtime_tts(reaction.message.content)
             logger.info(f"Speech generated")
