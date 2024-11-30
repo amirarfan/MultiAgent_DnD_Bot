@@ -62,7 +62,7 @@ export default function Features() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 * index }}
-          className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300"
+          className="bg-gray-800/70 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300"
         >
           <div className="flex items-center space-x-4 mb-4">
             {feature.icon}
