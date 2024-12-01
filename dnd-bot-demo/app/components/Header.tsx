@@ -79,7 +79,7 @@ export default function Header() {
               onClick={toggleChristmas}
               whileHover={{ scale: 1.1, rotate: [0, 10, -10, 0] }}
               whileTap={{ scale: 0.95 }}
-              className="relative text-2xl transition-transform duration-300 ease-in-out"
+              className="relative text-2xl transition-all duration-300 ease-in-out group"
             >
               <span className="relative z-10">
                 <ChristmasTreeIcon />
@@ -99,6 +99,7 @@ export default function Header() {
                   className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-green-500/20 rounded-full blur-lg"
                 />
               )}
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500/0 to-green-500/0 hover:from-red-500/20 hover:to-green-500/20 rounded-full transition-all duration-300 blur-md" />
             </motion.button>
           </div>
         </nav>
