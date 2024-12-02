@@ -79,7 +79,7 @@ export default function Header() {
               onClick={toggleChristmas}
               whileHover={{ scale: 1.1, rotate: [0, 10, -10, 0] }}
               whileTap={{ scale: 0.95 }}
-              className="relative text-2xl transition-all duration-300 ease-in-out group"
+              className={`relative text-2xl transition-all duration-300 ease-in-out group ${isChristmas ? 'active' : ''}`}
             >
               <span className="relative z-10">
                 <ChristmasTreeIcon />
