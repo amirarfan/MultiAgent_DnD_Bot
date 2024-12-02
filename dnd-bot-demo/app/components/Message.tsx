@@ -15,7 +15,7 @@ export default function Message({ content, isBot, delay = 0, reactions = [], tim
       initial={{ opacity: 0, x: isBot ? -20 : 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay }}
-      className="group relative"
+      className="group relative message-container"
     >
       <div className={`flex ${isBot ? 'justify-start' : 'justify-end'} mb-4`}>
         <div className={`relative max-w-[80%] rounded-lg p-4 ${

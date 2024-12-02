@@ -61,7 +61,7 @@
   transform: scale(1.02);
 }
 
-.christmas-mode * {
+.christmas-mode *:not(.message-container *, [style*="transform"]) {
   transition: all 0.3s ease-in-out;
 }
 
