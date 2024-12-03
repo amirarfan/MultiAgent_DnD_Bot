@@ -77,8 +77,8 @@
   transition: all 0.3s ease-in-out;
 }
 
-.christmas-mode button,
-.christmas-mode a {
+.christmas-mode button:not(.play-button),
+.christmas-mode a:not(.play-button) {
   position: relative;
   overflow: hidden;
 }
@@ -131,12 +131,4 @@
   100% {
     background-position: 0% 50%;
   }
-}
-
-.christmas-mode .video-player-container button {
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
 }

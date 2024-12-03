@@ -102,7 +102,7 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
   };
 
   return (
-    <div className={`relative ${isExpanded ? 'fixed inset-0 z-100' : ''}`}>
+    <div className={`video-player-container relative ${isExpanded ? 'fixed inset-0 z-100' : ''}`}>
       {isExpanded && (
         <motion.div 
           initial={{ opacity: 0 }}
@@ -160,7 +160,7 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleExpand}
-              className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors group"
+              className="play-button absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors group"
             >
               <motion.div
                 whileHover={{ scale: 1.1 }}
