@@ -42,31 +42,18 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
       }
     };
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isExpanded &&
-        expandedContainerRef.current &&
-        !expandedContainerRef.current.contains(event.target as Node)
-      ) {
-        handleMinimize();
-      }
-    };
-
     if (isExpanded) {
       window.addEventListener('scroll', handleScroll, { passive: true });
       document.addEventListener('keydown', handleEscapeKey);
-      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('keydown', handleEscapeKey);
-      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isExpanded]);
 
   const handleExpand = async () => {
-    // Store current scroll position
     scrollPositionRef.current = window.scrollY;
 
     // Smoothly scroll to top
@@ -81,15 +68,29 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
 
     setIsExpanded(true);
     onExpand?.();
-    await playerRef.current?.play();
+
+    // Ensure the player is ready before playing
+    if (playerRef.current) {
+      try {
+        await playerRef.current.play();
+      } catch (error) {
+        console.error('Failed to play video:', error);
+      }
+    }
   };
 
-  const handleMinimize = () => {
-    playerRef.current?.pause();
+  const handleMinimize = async () => {
+    if (playerRef.current) {
+      try {
+        await playerRef.current.pause();
+      } catch (error) {
+        console.error('Failed to pause video:', error);
+      }
+    }
+    
     setIsExpanded(false);
     onMinimize?.();
 
-    // Restore the previous scroll position
     window.scrollTo({
       top: scrollPositionRef.current,
       behavior: 'smooth'
@@ -97,46 +98,48 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
   };
 
   return (
-    <>
-      {isExpanded ? (
-        <>
-          <div 
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-100 video-player-overlay" 
-            onClick={handleMinimize}
+    <div className={`relative ${isExpanded ? 'fixed inset-0 z-100' : ''}`}>
+      {isExpanded && (
+        <div 
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-100" 
+          onClick={handleMinimize}
+        />
+      )}
+      
+      <div 
+        ref={isExpanded ? expandedContainerRef : containerRef}
+        className={`
+          ${isExpanded 
+            ? 'fixed inset-0 z-110 flex items-center justify-center p-4 md:p-8 mt-16' 
+            : 'relative w-full'
+          }
+        `}
+        onClick={isExpanded ? handleMinimize : undefined}
+      >
+        <div 
+          className={`
+            ${isExpanded 
+              ? 'w-full max-w-[85vw] aspect-video' 
+              : 'relative pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl bg-black/95'
+            }
+          `}
+          onClick={(e) => isExpanded && e.stopPropagation()}
+        >
+          <iframe
+            ref={iframeRef}
+            src={`https://player.vimeo.com/video/${videoId}?loop=1&title=0&byline=0&portrait=0`}
+            className={`
+              ${isExpanded 
+                ? 'w-full h-full rounded-xl' 
+                : 'absolute top-0 left-0 w-full h-full'
+              }
+            `}
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
           />
-          <div 
-            ref={expandedContainerRef}
-            className="fixed inset-0 z-110 flex items-center justify-center p-4 md:p-8 mt-16 video-player-container"
-            onClick={handleMinimize}
-          >
-            <div 
-              className="w-full max-w-[85vw] aspect-video"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div ref={containerRef} className="w-full h-full">
-                <iframe
-                  ref={iframeRef}
-                  src={`https://player.vimeo.com/video/${videoId}?loop=1&title=0&byline=0&portrait=0`}
-                  className="w-full h-full rounded-xl"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </div>
-          </div>
-        </>
-      ) : (
-        <div ref={containerRef} className="relative w-full video-player-container">
-          <div className="relative pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl bg-black/95">
-            <iframe
-              ref={iframeRef}
-              src={`https://player.vimeo.com/video/${videoId}?loop=1&title=0&byline=0&portrait=0`}
-              className="absolute top-0 left-0 w-full h-full"
-              frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-            />
+          
+          {!isExpanded && (
             <motion.button
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -170,9 +173,9 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
                 </svg>
               </motion.div>
             </motion.button>
-          </div>
+          )}
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 }
