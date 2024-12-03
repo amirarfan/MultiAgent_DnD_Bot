@@ -117,7 +117,7 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
         ref={isExpanded ? expandedContainerRef : containerRef}
         layout
         transition={{
-          layout: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+          layout: { duration: 0.5, ease: 'anticipate' }
         }}
         className={`
           ${isExpanded 
@@ -130,7 +130,7 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
         <motion.div 
           layout
           transition={{
-            layout: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+            layout: { duration: 0.5, ease: 'anticipate' }
           }}
           className={`
             ${isExpanded 
