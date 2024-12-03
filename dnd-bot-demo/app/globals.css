@@ -48,3 +48,9 @@ p {
 .scrollbar-thin::-webkit-scrollbar {
   width: 6px;
 }
+
+.video-player-container {
+  isolation: isolate;
+}
+
+

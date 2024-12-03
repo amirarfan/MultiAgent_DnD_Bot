@@ -6,6 +6,7 @@ import Header from './components/Header';
 import ChatDemo from './components/ChatDemo';
 import Features from './components/Features';
 import DiceBackground from './components/DiceBackground';
+import VideoPlayer from './components/VideoPlayer';
 
 export default function Home() {
   const heroRef = useRef(null);
@@ -76,17 +77,17 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="mt-16 max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-2xl bg-black/50 backdrop-blur-sm border border-purple-500/10"
+              className="mt-16 max-w-5xl mx-auto"
             >
-              <div className="relative pb-[56.25%] h-0">
-                <iframe
-                  src="https://player.vimeo.com/video/1025141034?autoplay=0&loop=1&title=0&byline=0&portrait=0"
-                  className="absolute top-0 left-0 w-full h-full"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
+              <VideoPlayer 
+                videoId="1025141034"
+                onExpand={() => {
+                  // Optional: Add any additional effects when video expands
+                }}
+                onMinimize={() => {
+                  // Optional: Cleanup effects when video minimizes
+                }}
+              />
             </motion.div>
           </motion.div>
         </motion.div>
