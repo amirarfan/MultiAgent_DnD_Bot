@@ -108,7 +108,7 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-100" 
+          className="fixed inset-0 bg-black/80 backdrop-blur-md z-100" 
           onClick={handleMinimize}
         />
       )}
@@ -137,6 +137,7 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
               ? 'w-full max-w-[85vw] aspect-video' 
               : 'relative pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl bg-black/95'
             }
+            group
           `}
           onClick={(e) => isExpanded && e.stopPropagation()}
         >
@@ -155,39 +156,37 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
           />
           
           {!isExpanded && (
-            <motion.button
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={handleExpand}
-              className="play-button absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors group"
+              className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent group-hover:opacity-90 transition-opacity duration-300"
             >
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-lg"
+              <motion.button
+                onClick={handleExpand}
+                className="play-button absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
               >
-                <svg
-                  className="w-10 h-10 text-black ml-1 group-hover:scale-110 transition-transform"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="relative"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </motion.div>
-            </motion.button>
+                  <div className="absolute inset-0 rounded-full bg-purple-500/20 blur-xl scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  <div className="relative w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg overflow-hidden group-hover:bg-white/15 transition-all duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/30 via-purple-400/30 to-purple-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <svg
+                      className="w-10 h-10 text-white relative z-10 transform translate-x-0.5 group-hover:scale-110 transition-transform duration-300"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </motion.div>
+              </motion.button>
+            </motion.div>
           )}
         </motion.div>
       </motion.div>
