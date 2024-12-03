@@ -5,7 +5,9 @@ export function useChristmasMode() {
   const [isChristmas, setIsChristmas] = useState(false);
 
   useEffect(() => {
-    audioService.initializeChristmasAudio();
+    audioService.initializeChristmasAudio().catch(error => {
+      console.error('Failed to initialize Christmas audio:', error);
+    });
     
     return () => {
       audioService.cleanup();
