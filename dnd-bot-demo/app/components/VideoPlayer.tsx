@@ -56,20 +56,24 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
   const handleExpand = async () => {
     scrollPositionRef.current = window.scrollY;
 
-    // Smoothly scroll to top
     await new Promise<void>((resolve) => {
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
       
-      setTimeout(resolve, 500);
+      setTimeout(resolve, 400);
     });
 
-    setIsExpanded(true);
-    onExpand?.();
+    await new Promise(resolve => setTimeout(resolve, 10));
 
-    // Ensure the player is ready before playing
+    requestAnimationFrame(() => {
+      setIsExpanded(true);
+      onExpand?.();
+    });
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+
     if (playerRef.current) {
       try {
         await playerRef.current.play();
@@ -100,14 +104,21 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
   return (
     <div className={`relative ${isExpanded ? 'fixed inset-0 z-100' : ''}`}>
       {isExpanded && (
-        <div 
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
           className="fixed inset-0 bg-black/70 backdrop-blur-sm z-100" 
           onClick={handleMinimize}
         />
       )}
       
-      <div 
+      <motion.div 
         ref={isExpanded ? expandedContainerRef : containerRef}
+        layout
+        transition={{
+          layout: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+        }}
         className={`
           ${isExpanded 
             ? 'fixed inset-0 z-110 flex items-center justify-center p-4 md:p-8 mt-16' 
@@ -116,7 +127,11 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
         `}
         onClick={isExpanded ? handleMinimize : undefined}
       >
-        <div 
+        <motion.div 
+          layout
+          transition={{
+            layout: { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+          }}
           className={`
             ${isExpanded 
               ? 'w-full max-w-[85vw] aspect-video' 
@@ -174,8 +189,8 @@ export default function VideoPlayer({ videoId, onExpand, onMinimize }: VideoPlay
               </motion.div>
             </motion.button>
           )}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
